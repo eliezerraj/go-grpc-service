@@ -1,0 +1,14 @@
+# docker build -t client-http-redirect . -f dockerfile-client-http-redirect
+FROM golang:1.21 As builder
+
+WORKDIR /app
+COPY . .
+
+WORKDIR /app/client-http-redirect/cmd
+RUN go build -o main -ldflags '-linkmode external -w -extldflags "-static"'
+
+FROM alpine
+
+WORKDIR /app
+COPY --from=builder /app/client-http-redirect/cmd/main .
+CMD ["/app/main"]

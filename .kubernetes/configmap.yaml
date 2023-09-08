@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: &app-name go-grpc-service-server-cm
+  namespace: test-b
+  labels:
+    app: *app-name
+data:
+  HOST: ":50051"

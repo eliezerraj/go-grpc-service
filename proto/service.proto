@@ -1,0 +1,73 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package balance;
+
+message Balance {
+    string id               = 1;
+    string account          = 2;
+    int32  amount           = 3;
+    google.protobuf.Timestamp date_balance = 4;
+    string description      = 5;
+}
+
+message AddBalanceRequest {
+    Balance balance = 1;
+}
+
+message AddBalanceResponse {
+    bool result = 1;
+}
+
+message GetBalanceRequest {
+    string  id            = 1;
+}
+
+message GetBalanceResponse {
+    Balance balance = 1;
+}
+
+message ListBalanceRequest {
+}
+
+message ListBalanceResponse {
+    repeated Balance balance = 1;
+    int32 total              = 2;
+}
+
+message PodInfo {
+    string ip               = 1;
+}
+
+message PodInfoRequest {
+}
+
+message PodInfoResponse {
+    PodInfo podInfo = 1;
+}
+
+service BalanceService  {
+    rpc ListBalance(ListBalanceRequest) returns (ListBalanceResponse) {};
+    rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
+    rpc AddBalance(AddBalanceRequest) returns (AddBalanceResponse) {};
+    rpc GetPodInfo(PodInfoRequest) returns (PodInfoResponse) {};
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;  // Used only by the Watch method.
+  }
+  ServingStatus status = 1;
+}
+
+service Health {
+    rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+    rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}
