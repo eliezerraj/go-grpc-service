@@ -23,7 +23,7 @@ import (
 )
 
 var (
-	HOST = ":50051"
+	HOST = ":50052"
 	POD_IP = "X.X.X.X" 
 )
 

@@ -27,7 +27,7 @@ var (
 	my_secret_loaded_from_volume 	domain.Secret
 	my_info_pod						domain.InfoPod
 	PORT = 3000
-	HOST = ":50051"
+	HOST = ":50052"
 	API_VERSION = "no-version"
 	POD_NAME = "pod no-name"
 	POD_PATH = ""
@@ -155,4 +155,7 @@ func main() {
 	httpServer	:= server.NewHttpServer(time.Now(), my_info_pod)
 	
 	httpServer.StartHttpServer(handler)
+	log.Printf("End HttpServerProcess !!")
+	grpcClient.CloseConnection()
+	log.Printf("End Grpc Process !!")
 }

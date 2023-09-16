@@ -11,4 +11,4 @@ data:
   API_VERSION: "version 1"
   POD_PATH: ""
   JWTKEY: "my_secret_key"
-  HOST: "svc-go-grpc-service-server:50051"
+  HOST: "dns:///svc-go-grpc-service-server:50051"
